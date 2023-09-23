@@ -8,8 +8,9 @@ displayContent.classList.add('fontColor')
 var content = ''
 displayContent.textContent = content
 display.appendChild(displayContent)
-
 const clear = document.querySelector('#clear');
+
+
 clear.addEventListener('click', () => {
     content = ''
     displayContent.textContent = content
@@ -21,8 +22,8 @@ nine.addEventListener('click', () => {
     content = content + '9'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -32,8 +33,8 @@ eight.addEventListener('click', () => {
     content = content + '8'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -43,8 +44,8 @@ seven.addEventListener('click', () => {
     content = content + '7'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -54,8 +55,8 @@ six.addEventListener('click', () => {
     content = content + '6'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -65,8 +66,8 @@ five.addEventListener('click', () => {
     content = content + '5'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -76,8 +77,8 @@ four.addEventListener('click', () => {
     content = content + '4'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -87,8 +88,8 @@ three.addEventListener('click', () => {
     content = content + '3'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -98,8 +99,8 @@ two.addEventListener('click', () => {
     content = content + '2'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -109,8 +110,8 @@ one.addEventListener('click', () => {
     content = content + '1'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -120,8 +121,8 @@ zero.addEventListener('click', () => {
     content = content + '0'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(indexArray.length-1)
+    if (nextInt)
+        indexArray.push(indexArray.length - 1)
 
     nextInt = false;
 });
@@ -131,8 +132,8 @@ dot.addEventListener('click', () => {
     content = content + '.'
     displayContent.textContent = content
 
-    if(nextInt)
-    indexArray.push(content.length-1)
+    if (nextInt)
+        indexArray.push(content.length - 1)
 
     nextInt = false;
 });
@@ -142,8 +143,8 @@ add.addEventListener('click', () => {
     content = content + '+'
     displayContent.textContent = content
 
-    if(!nextInt)
-    signArray.push(content.length-1)
+    if (!nextInt)
+        signArray.push(content.length - 1)
 
     nextInt = true;
 });
@@ -153,8 +154,8 @@ sub.addEventListener('click', () => {
     content = content + '‒'
     displayContent.textContent = content
 
-    if(!nextInt)
-    signArray.push(content.length-1)
+    if (!nextInt)
+        signArray.push(content.length - 1)
 
     nextInt = true;
 });
@@ -164,8 +165,8 @@ times.addEventListener('click', () => {
     content = content + '×';
     displayContent.textContent = content
 
-    if(!nextInt)
-    signArray.push(content.length-1)
+    if (!nextInt)
+        signArray.push(content.length - 1)
 
     nextInt = true;
 });
@@ -175,8 +176,8 @@ div.addEventListener('click', () => {
     content = content + '÷'
     displayContent.textContent = content
 
-    if(!nextInt)
-    signArray.push(content.length-1)
+    if (!nextInt)
+        signArray.push(content.length - 1)
 
     nextInt = true;
 });
@@ -186,12 +187,14 @@ neg.addEventListener('click', () => {
     content = content + '-'
     displayContent.textContent = content
 
-    if(!nextInt)
-    signArray.push(content.length-1)
+    if (!nextInt)
+        signArray.push(content.length - 1)
 
     nextInt = false;
 });
 
+
+var error = false;
 
 const equal = document.querySelector('#equal');
 equal.addEventListener('click', () => {
@@ -199,98 +202,85 @@ equal.addEventListener('click', () => {
     multDiv();
     addSub();
 
+    if(error){
+        displayContent.textContent = 'SYNTAX ERROR'
+        content = ''
+        error = false;
+    }
+
+    else{
     var contentNum = parseFloat(content);;
+    if (content.length > 10)
+        content = contentNum.toExponential(5)
 
-    if(content.length > 10)
-    content = contentNum.toExponential(5)
-
-    
-    //console.log(`content after:${content}`)
     displayContent.textContent = content
+    }
 
 });
 
 
-function roundToTwo(num) {
-    return +(Math.round(num + "e+2")  + "e-2");
-}
-
-function multDiv(){
-    while(content.indexOf('×') > 0 || content.indexOf('÷') > 0){
+function multDiv() {
+    while (content.indexOf('×') >= 0 || content.indexOf('÷') >= 0) {
         let num1 = 0
         let num2 = 0
         let equation = ''
         let answer = 0;
         let mult = content.indexOf('×')
         let div = content.indexOf('÷')
-        let firstSign = ''
-    
-        if(mult == - 1)
-        firstSign = div;
-    
-        else if(div == -1)
-        firstSign = mult;
-    
-        else if(mult > div)
-        firstSign = div;
-    
+        let firstSign = 0
+
+        if (mult == - 1)
+            firstSign = div;
+
+        else if (div == -1)
+            firstSign = mult;
+
+        else if (mult > div)
+            firstSign = div;
+
         else
-        firstSign = mult;
-                for(let x = firstSign-1;x >= 0; x--){
-                    if(content.slice(x,x+1) == '+')
-                    break;
-    
-                    if(content.slice(x,x+1) == '‒')
-                    break;
-    
-                    if(content.slice(x,x+1) == '×')
-                    break;
-    
-                    if(content.slice(x,x+1) == '÷')
-                    break;
-                    
-                    num1 = content.slice(x, firstSign)
-                    //console.log(`x: ${x}  mult: ${mult}`)
-                }
-    
-                for(let x = firstSign+1; x <= content.length; x++){
-                    //console.log(`num 2 x: ${mult+1}  mult: ${x}`)
-                    if(content.slice(x,x+1) == '+')
-                    break;
-    
-                    if(content.slice(x,x+1) == '‒')
-                    break;
-    
-                    if(content.slice(x,x+1) == '×')
-                    break;
-    
-                    if(content.slice(x,x+1) == '÷')
-                    break;
+            firstSign = mult;
 
-                    num2 = content.slice(firstSign+1, x+1)
-                }
-    
-                if(content.slice(firstSign, firstSign+1) == '×'){
-                equation = num1 + '×' + num2
-                answer = parseFloat(num1) * parseFloat(num2);
-                //console.log(`og equation:${content}`)
-                console.log(`multiply equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
+            if (firstSign == 0 || content.slice(firstSign-1, firstSign) == '+' || content.slice(firstSign-1, firstSign) == '‒' || content.slice(firstSign-1, firstSign) == '×' || content.slice(firstSign-1, firstSign) == '÷' || content.slice(firstSign+1, firstSign+2) == '+' || content.slice(firstSign+1, firstSign+2) == '‒' || content.slice(firstSign+1, firstSign+2) == '×' || content.slice(firstSign+1, firstSign+2) == '÷'){
+                error = true;
+                console.log('error')
+                break;
+            }
 
-                }
-    
-                else if(content.slice(firstSign, firstSign+1) == '÷'){
-                    equation = num1 + '÷' + num2
-                    answer = parseFloat(num1) / parseFloat(num2);
-                    console.log(`og equation:${content}`)
-                    console.log(`div equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
 
-                    }
-                    content = content.replace(equation,answer)
-        };
-}
+        //searches for first num
+        for (let x = firstSign - 1; x >= 0; x--) {
+            if (content.slice(x, x + 1) == '+' || content.slice(x, x + 1) == '‒' || content.slice(x, x + 1) == '×' || content.slice(x, x + 1) == '÷')
+                break;
 
-function addSub(){
-    while(content.indexOf('+') > 0 || content.indexOf('‒') > 0){
+            num1 = content.slice(x, firstSign)
+        }//end of first for loop 
+
+        if(error)
+        break;
+
+        //searches for second num
+        for (let x = firstSign + 1; x <= content.length; x++) {
+            if (content.slice(x, x + 1) == '+' || content.slice(x, x + 1) == '‒' || content.slice(x, x + 1) == '×' || content.slice(x, x + 1) == '÷')
+                break;
+            num2 = content.slice(firstSign + 1, x + 1)
+        }//end of second for loop
+
+        if (content.slice(firstSign, firstSign + 1) == '×') {
+            equation = num1 + '×' + num2
+            answer = parseFloat(num1) * parseFloat(num2);
+        }
+
+        else if (content.slice(firstSign, firstSign + 1) == '÷') {
+            equation = num1 + '÷' + num2
+            answer = parseFloat(num1) / parseFloat(num2);
+        }
+        content = content.replace(equation, answer)
+    };//end of while loop
+}//end of multdiv function
+
+function addSub() {
+    while (content.indexOf('+') > 0 || content.indexOf('‒') > 0) {
         let num1 = 0
         let num2 = 0
         let equation = ''
@@ -298,51 +288,48 @@ function addSub(){
         let add = content.indexOf('+')
         let sub = content.indexOf('‒')
         let firstSign = ''
-    
-        if(add == - 1)
-        firstSign = sub;
-    
-        else if(sub == -1)
-        firstSign = add;
-    
-        else if(add > sub)
-        firstSign = sub;
-    
+
+        if (add == - 1)
+            firstSign = sub;
+
+        else if (sub == -1)
+            firstSign = add;
+
+        else if (add > sub)
+            firstSign = sub;
+
         else
-        firstSign = add;
+            firstSign = add;
 
-                for(let x = firstSign-1;x >= 0; x--){
-                    if(content.slice(x,x+1) == '+')
-                    break;
-    
-                    if(content.slice(x,x+1) == '‒')
-                    break;
-    
-                    if(content.slice(x,x+1) == '×')
-                    break;
-    
-                    if(content.slice(x,x+1) == '÷')
-                    break;
+            if (firstSign== 0 || content.slice(firstSign-1, firstSign) == '+' || content.slice(firstSign-1, firstSign) == '‒' || content.slice(firstSign-1, firstSign) == '×' || content.slice(firstSign-1, firstSign) == '÷' || content.slice(firstSign+1, firstSign+2) == '+' || content.slice(firstSign+1, firstSign+2) == '‒' || content.slice(firstSign+1, firstSign+2) == '×' || content.slice(firstSign+1, firstSign+2) == '÷'){
+                error = true;
+                console.log('error')
+                break;
+            }
 
-                    num1 = content.slice(x, firstSign)
-                }
-    
-                for(let x = firstSign+1; x <= content.length; x++){
-                    if(content.slice(x,x+1) == '+' || content.slice(x,x+1) == '‒' || content.slice(x,x+1) == '×' || content.slice(x,x+1) == '÷')
-                    break;
-                    num2 = content.slice(firstSign+1, x + 1)
-                }
-    
-                if(content.slice(firstSign, firstSign+1) == '+'){
-                equation = num1 + '+' + num2
-                answer = parseFloat(num1) + parseFloat(num2);
-                }
-    
-                else if(content.slice(firstSign, firstSign+1) == '‒'){
-                    equation = num1 + '‒' + num2
-                    answer = parseFloat(num1) - parseFloat(num2);
-                    }
-                    content = content.replace(equation,answer)
-        };
+        for (let x = firstSign - 1; x >= 0; x--) {
+            if (content.slice(x, x + 1) == '+' || content.slice(x, x + 1) == '‒' || content.slice(x, x + 1) == '×' || content.slice(x, x + 1) == '÷')
+                break;
 
-    }
+            num1 = content.slice(x, firstSign)
+        }
+
+        for (let x = firstSign + 1; x <= content.length; x++) {
+            if (content.slice(x, x + 1) == '+' || content.slice(x, x + 1) == '‒' || content.slice(x, x + 1) == '×' || content.slice(x, x + 1) == '÷')
+                break;
+            num2 = content.slice(firstSign + 1, x + 1)
+        }
+
+        if (content.slice(firstSign, firstSign + 1) == '+') {
+            equation = num1 + '+' + num2
+            answer = parseFloat(num1) + parseFloat(num2);
+        }
+
+        else if (content.slice(firstSign, firstSign + 1) == '‒') {
+            equation = num1 + '‒' + num2
+            answer = parseFloat(num1) - parseFloat(num2);
+        }
+        content = content.replace(equation, answer)
+    };
+
+}
