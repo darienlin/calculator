@@ -195,88 +195,171 @@ neg.addEventListener('click', () => {
 
 const equal = document.querySelector('#equal');
 equal.addEventListener('click', () => {
-    /**indexArray.forEach(index =>{
-        console.log(`index Array ${index}`)
-    })
 
-    signArray.forEach(index =>{
-        console.log(`sign Array ${index}`)
-    })**/
+    multDiv();
+    addSub();
 
-   while(content.indexOf('×') > 0 || content.indexOf('÷') > 0){
-    let num1 = 0
-    let num2 = 0
-    let equation = ''
-    let answer = 0;
-    let mult = content.indexOf('×')
-    let div = content.indexOf('÷')
-    let firstSign = ''
+    var contentNum = parseFloat(content);;
 
-    if(mult == - 1)
-    firstSign = div;
+    if(content.length > 10)
+    content = contentNum.toExponential(5)
 
-    else if(div == -1)
-    firstSign = mult;
-
-    else if(mult > div)
-    firstSign = div;
-
-    else
-    firstSign = mult;
-            for(let x = firstSign-1;x >= 0; x--){
-                num1 = content.slice(x, firstSign)
-                //console.log(`x: ${x}  mult: ${mult}`)
-                if(content.slice(x,x+1) == '+')
-                break;
-
-                if(content.slice(x,x+1) == '‒')
-                break;
-
-                if(content.slice(x,x+1) == '×')
-                break;
-
-                if(content.slice(x,x+1) == '÷')
-                break;
-            }
-
-            for(let x = firstSign+1; x <= content.length; x++){
-                num2 = content.slice(firstSign+1, x)
-                //console.log(`num 2 x: ${mult+1}  mult: ${x}`)
-                if(content.slice(x,x+1) == '+')
-                break;
-
-                if(content.slice(x,x+1) == '‒')
-                break;
-
-                if(content.slice(x,x+1) == '×')
-                break;
-
-                if(content.slice(x,x+1) == '÷')
-                break;
-            }
-
-            if(content.slice(firstSign, firstSign+1) == '×'){
-            equation = num1 + '×' + num2
-            answer = parseFloat(num1) * parseFloat(num2);
-            console.log(`og equation:${content}`)
-            content = content.replace(equation,answer)
-            console.log(`multiply equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
-            }
-
-            else if(content.slice(firstSign, firstSign+1) == '÷'){
-                equation = num1 + '÷' + num2
-                answer = parseFloat(num1) / parseFloat(num2);
-                console.log(`og equation:${content}`)
-                content = content.replace(equation,answer)
-                console.log(`divide equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
-                }
-    };
-
-
-
+    
+    //console.log(`content after:${content}`)
     displayContent.textContent = content
 
 });
 
 
+function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}
 
+function multDiv(){
+    while(content.indexOf('×') > 0 || content.indexOf('÷') > 0){
+        let num1 = 0
+        let num2 = 0
+        let equation = ''
+        let answer = 0;
+        let mult = content.indexOf('×')
+        let div = content.indexOf('÷')
+        let firstSign = ''
+    
+        if(mult == - 1)
+        firstSign = div;
+    
+        else if(div == -1)
+        firstSign = mult;
+    
+        else if(mult > div)
+        firstSign = div;
+    
+        else
+        firstSign = mult;
+                for(let x = firstSign-1;x >= 0; x--){
+                    if(content.slice(x,x+1) == '+')
+                    break;
+    
+                    if(content.slice(x,x+1) == '‒')
+                    break;
+    
+                    if(content.slice(x,x+1) == '×')
+                    break;
+    
+                    if(content.slice(x,x+1) == '÷')
+                    break;
+                    
+                    num1 = content.slice(x, firstSign)
+                    //console.log(`x: ${x}  mult: ${mult}`)
+                }
+    
+                for(let x = firstSign+1; x <= content.length; x++){
+                    //console.log(`num 2 x: ${mult+1}  mult: ${x}`)
+                    if(content.slice(x,x+1) == '+')
+                    break;
+    
+                    if(content.slice(x,x+1) == '‒')
+                    break;
+    
+                    if(content.slice(x,x+1) == '×')
+                    break;
+    
+                    if(content.slice(x,x+1) == '÷')
+                    break;
+
+                    num2 = content.slice(firstSign+1, x+1)
+                }
+    
+                if(content.slice(firstSign, firstSign+1) == '×'){
+                equation = num1 + '×' + num2
+                answer = parseFloat(num1) * parseFloat(num2);
+                //console.log(`og equation:${content}`)
+                console.log(`multiply equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
+
+                }
+    
+                else if(content.slice(firstSign, firstSign+1) == '÷'){
+                    equation = num1 + '÷' + num2
+                    answer = parseFloat(num1) / parseFloat(num2);
+                    console.log(`og equation:${content}`)
+                    console.log(`div equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
+
+                    }
+                    content = content.replace(equation,answer)
+        };
+}
+
+function addSub(){
+    while(content.indexOf('+') > 0 || content.indexOf('‒') > 0){
+        let num1 = 0
+        let num2 = 0
+        let equation = ''
+        let answer = 0;
+        let add = content.indexOf('+')
+        let sub = content.indexOf('‒')
+        let firstSign = ''
+    
+        if(add == - 1)
+        firstSign = sub;
+    
+        else if(sub == -1)
+        firstSign = add;
+    
+        else if(add > sub)
+        firstSign = sub;
+    
+        else
+        firstSign = add;
+
+                for(let x = firstSign-1;x >= 0; x--){
+                    //console.log(`x: ${x}  mult: ${mult}`)
+                    if(content.slice(x,x+1) == '+')
+                    break;
+    
+                    if(content.slice(x,x+1) == '‒')
+                    break;
+    
+                    if(content.slice(x,x+1) == '×')
+                    break;
+    
+                    if(content.slice(x,x+1) == '÷')
+                    break;
+
+                    num1 = content.slice(x, firstSign)
+                }
+    
+                for(let x = firstSign+1; x <= content.length; x++){
+                    //console.log(`num 2 x: ${mult+1}  mult: ${x}`)
+                    if(content.slice(x,x+1) == '+')
+                    break;
+    
+                    if(content.slice(x,x+1) == '‒')
+                    break;
+    
+                    if(content.slice(x,x+1) == '×')
+                    break;
+    
+                    if(content.slice(x,x+1) == '÷')
+                    break;
+                    num2 = content.slice(firstSign+1, x + 1)
+                }
+    
+                if(content.slice(firstSign, firstSign+1) == '+'){
+                equation = num1 + '+' + num2
+                answer = parseFloat(num1) + parseFloat(num2);
+                console.log(`og equation:${content}`)
+                console.log(`add equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
+
+                }
+    
+                else if(content.slice(firstSign, firstSign+1) == '‒'){
+                    equation = num1 + '‒' + num2
+                    answer = parseFloat(num1) - parseFloat(num2);
+                    console.log(`og equation:${content}`)
+                    console.log(`sub equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
+
+                    }
+                    content = content.replace(equation,answer)
+        };
+
+    }
