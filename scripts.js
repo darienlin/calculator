@@ -312,7 +312,6 @@ function addSub(){
         firstSign = add;
 
                 for(let x = firstSign-1;x >= 0; x--){
-                    //console.log(`x: ${x}  mult: ${mult}`)
                     if(content.slice(x,x+1) == '+')
                     break;
     
@@ -329,17 +328,7 @@ function addSub(){
                 }
     
                 for(let x = firstSign+1; x <= content.length; x++){
-                    //console.log(`num 2 x: ${mult+1}  mult: ${x}`)
-                    if(content.slice(x,x+1) == '+')
-                    break;
-    
-                    if(content.slice(x,x+1) == '‒')
-                    break;
-    
-                    if(content.slice(x,x+1) == '×')
-                    break;
-    
-                    if(content.slice(x,x+1) == '÷')
+                    if(content.slice(x,x+1) == '+' || content.slice(x,x+1) == '‒' || content.slice(x,x+1) == '×' || content.slice(x,x+1) == '÷')
                     break;
                     num2 = content.slice(firstSign+1, x + 1)
                 }
@@ -347,17 +336,11 @@ function addSub(){
                 if(content.slice(firstSign, firstSign+1) == '+'){
                 equation = num1 + '+' + num2
                 answer = parseFloat(num1) + parseFloat(num2);
-                console.log(`og equation:${content}`)
-                console.log(`add equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
-
                 }
     
                 else if(content.slice(firstSign, firstSign+1) == '‒'){
                     equation = num1 + '‒' + num2
                     answer = parseFloat(num1) - parseFloat(num2);
-                    console.log(`og equation:${content}`)
-                    console.log(`sub equation:${equation}\n num1:${num1}\n num2:${num2}\n answer:${answer}\n content:${content}`)
-
                     }
                     content = content.replace(equation,answer)
         };
