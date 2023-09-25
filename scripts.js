@@ -193,12 +193,34 @@ neg.addEventListener('click', () => {
     nextInt = false;
 });
 
+const percent = document.querySelector('#percent');
+percent.addEventListener('click', () => {
+    let firstSign = content.length - 1;
+    if (content.slice(firstSign, firstSign+1) == '+' || content.slice(firstSign, firstSign+1) == '‒' || content.slice(firstSign, firstSign+1) == '×' || content.slice(firstSign, firstSign+1) == '÷'){
+        displayContent.textContent = 'SYNTAX ERROR'
+        content = ''
+        error = false;
+    }
+
+    else{
+        multDiv();
+        addSub();
+    var contentNum = parseFloat(content);
+    if (content.length > 16)
+        content = contentNum.toExponential(5)
+
+        else{
+            content = content/100
+            displayContent.textContent = content
+        }
+    }
+});
+
 
 var error = false;
 
 const equal = document.querySelector('#equal');
 equal.addEventListener('click', () => {
-
     multDiv();
     addSub();
 
@@ -209,8 +231,8 @@ equal.addEventListener('click', () => {
     }
 
     else{
-    var contentNum = parseFloat(content);;
-    if (content.length > 10)
+    var contentNum = parseFloat(content);
+    if (content.length > 16)
         content = contentNum.toExponential(5)
 
     displayContent.textContent = content
@@ -241,6 +263,7 @@ function multDiv() {
         else
             firstSign = mult;
 
+            
             if (firstSign == 0 || content.slice(firstSign-1, firstSign) == '+' || content.slice(firstSign-1, firstSign) == '‒' || content.slice(firstSign-1, firstSign) == '×' || content.slice(firstSign-1, firstSign) == '÷' || content.slice(firstSign+1, firstSign+2) == '+' || content.slice(firstSign+1, firstSign+2) == '‒' || content.slice(firstSign+1, firstSign+2) == '×' || content.slice(firstSign+1, firstSign+2) == '÷'){
                 error = true;
                 console.log('error')
@@ -280,6 +303,7 @@ function multDiv() {
 }//end of multdiv function
 
 function addSub() {
+    content = content.replace('--', '+');
     while (content.indexOf('+') > 0 || content.indexOf('‒') > 0) {
         let num1 = 0
         let num2 = 0
@@ -301,6 +325,7 @@ function addSub() {
         else
             firstSign = add;
 
+            
             if (firstSign== 0 || content.slice(firstSign-1, firstSign) == '+' || content.slice(firstSign-1, firstSign) == '‒' || content.slice(firstSign-1, firstSign) == '×' || content.slice(firstSign-1, firstSign) == '÷' || content.slice(firstSign+1, firstSign+2) == '+' || content.slice(firstSign+1, firstSign+2) == '‒' || content.slice(firstSign+1, firstSign+2) == '×' || content.slice(firstSign+1, firstSign+2) == '÷'){
                 error = true;
                 console.log('error')
@@ -332,4 +357,4 @@ function addSub() {
         content = content.replace(equation, answer)
     };
 
-}
+}//end of addsub function
