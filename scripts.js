@@ -8,9 +8,8 @@ displayContent.classList.add('fontColor')
 var content = ''
 displayContent.textContent = content
 display.appendChild(displayContent)
+
 const clear = document.querySelector('#clear');
-
-
 clear.addEventListener('click', () => {
     content = ''
     displayContent.textContent = content
@@ -192,6 +191,47 @@ neg.addEventListener('click', () => {
 
     nextInt = false;
 });
+
+const buttons = document.querySelectorAll('.buttons')
+buttons.forEach(elem =>{
+    elem.addEventListener('mousedown', () =>{
+        elem.classList.add('clickedRegButtons')
+    })
+})
+
+buttons.forEach(elem =>{
+    elem.addEventListener('mouseup', () =>{
+        elem.classList.remove('clickedRegButtons')
+    })
+})
+
+const signButtons = document.querySelectorAll('.signs')
+signButtons.forEach(elem =>{
+    elem.addEventListener('mousedown', () =>{
+        elem.classList.add('clickedSignButtons')
+    })
+})
+
+signButtons.forEach(elem =>{
+    elem.addEventListener('mouseup', () =>{
+        elem.classList.remove('clickedSignButtons')
+    })
+})
+
+const topButtons = document.querySelectorAll('.top')
+topButtons.forEach(elem =>{
+    elem.addEventListener('mousedown', () =>{
+        elem.classList.add('clickedTopButtons')
+    })
+})
+
+topButtons.forEach(elem =>{
+    elem.addEventListener('mouseup', () =>{
+        elem.classList.remove('clickedTopButtons')
+    })
+})
+
+
 
 const percent = document.querySelector('#percent');
 percent.addEventListener('click', () => {
