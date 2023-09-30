@@ -271,11 +271,16 @@ equal.addEventListener('click', () => {
     }
 
     else{
-    var contentNum = parseFloat(content);
-    if (content.length > 16)
-        content = contentNum.toExponential(5)
+    content = parseFloat(content);
+    if (content < .0001 || content > 1000)
+        content = content.toExponential(6)
 
-    displayContent.textContent = content
+    else
+    content = Math.round(content*1000000)/1000000;
+
+    //console.log(`content:${content}    boolean:${content < .0001}`)
+    
+    displayContent.textContent = content;
     }
 
 });
